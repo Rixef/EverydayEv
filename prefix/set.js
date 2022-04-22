@@ -125,13 +125,55 @@ if(messageContents.length > 0)//if it does exist already
   await lib.discord.channels['@0.3.0'].messages.update({
     message_id: loadmsg.id,
     channel_id: loadmsg.channel_id,
-    content: context.params.event.content,
+    "content": "!set",
+    "tts": false,
+    "embeds": [
+      {
+        "type": "rich",
+        "title": `Storage`,
+        "description": "",
+        "color": 0x00FFFF,
+        "fields": [
+          {
+            "name": `Date Time TZ`,
+            "value": `${context.params.event.content}`,
+            "inline": true
+          },
+          {
+            "name": `Pings`,
+            "value": loadmsg.embeds[0].fields[1].value,
+            "inline": true
+          }
+        ]
+      }
+    ]
   });
 }
 else if(messageContents.length === 0)//if it doesn't exist already
 {
   await lib.discord.channels['@0.3.0'].messages.create({
-    channel_id: `${everydayevdbchannel_id}`,
-    content: context.params.event.content,
+    "channel_id": `${process.env.everydayevdbchannel_id}`,
+    "content": "!set",
+    "tts": false,
+    "embeds": [
+      {
+        "type": "rich",
+        "title": `Storage`,
+        "description": "",
+        "color": 0x00FFFF,
+        "fields": [
+          {
+            "name": `Date Time TZ`,
+            "value": `${context.params.event.content}`,
+            "inline": true
+          },
+          {
+            "name": `Pings`,
+            "value": `@here`,
+            "inline": true
+          }
+        ]
+      }
+    ]
   });
 }
