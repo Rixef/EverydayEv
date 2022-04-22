@@ -128,9 +128,9 @@ if(messageContents.length > 0)//if it does exist already
   //MM/DD TZO
   //DD HH:MM TZO
   //DD TZO
-  if(loadmsg.content.includes(":"))//if there's time
+  if(loadmsg.embeds[0].fields[0].value.includes(":"))//if there's time
   {
-    var getsetdatetime = loadmsg.content.replace("!set ","").split(" ");
+    var getsetdatetime = loadmsg.embeds[0].fields[0].value.replace("!set ","").split(" ");
     getsetdate = getsetdatetime[0];//date
     getsettime = getsetdatetime[1];//time
     getsettimezoneoffset = parseInt(TZs[getsetdatetime[2].toUpperCase()]);//timezoneoffset or timezone
@@ -159,7 +159,7 @@ if(messageContents.length > 0)//if it does exist already
   }
   else//no time
   {
-    var getsetdatetime = loadmsg.content.replace("!set ","").split(" ");//split date timezoneoffset
+    var getsetdatetime = loadmsg.embeds[0].fields[0].value.replace("!set ","").split(" ");//split date timezoneoffset
     getsetdate = getsetdatetime[0].split("/");//split year/month/day
     getsettimezoneoffset = parseInt(TZs[getsetdatetime[1].toUpperCase()]);//timezone
   }
@@ -179,7 +179,7 @@ if(messageContents.length > 0)//if it does exist already
   var diffdays = diffhours/24;
   await lib.discord.channels['@0.3.0'].messages.create({
     channel_id: `960786323868897303`,
-    content: Math.floor(diffdays)+" days, "+Math.floor(diffhours % 24)+" hours, "+Math.floor(60 - nowminute)+" minutes.",
+    content: Math.floor(diffdays)+" days, "+Math.floor(diffhours % 24)+" hours, "+Math.floor(getsetminute - nowminute)+" minutes.",
   });
 }
 else if(messageContents.length === 0)//if it doesn't exist already
