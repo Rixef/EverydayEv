@@ -1,9 +1,11 @@
 const lib = require('lib')({token: process.env.STDLIB_SECRET_TOKEN});
 
 var TZs = {
+  "EDT": -04*60,
   "ET": -05*60,
   "CT": -06*60,
   "MT": -07*60,
+  "PDT": -07*60,
   "PT": -08*60,
   "AK": -09*60,
   "HAST": -10*60,
@@ -177,9 +179,12 @@ if(messageContents.length > 0)//if it does exist already
   var diffmins = diffsecs/60;
   var diffhours = diffmins/60;
   var diffdays = diffhours/24;
+  var remainingdays = Math.floor(diffdays);
+  var remaininghours = Math.floor(diffhours % 24);
+  var remainingminutes = Math.floor(diffmins % 60);
   await lib.discord.channels['@0.3.0'].messages.create({
     channel_id: `960786323868897303`,
-    content: Math.floor(diffdays)+" days, "+Math.floor(diffhours % 24)+" hours, "+Math.floor(getsetminute - nowminute)+" minutes.",
+    content: remainingdays+" days, "+remaininghours+" hours, "+remainingminutes+" minutes.",
   });
 }
 else if(messageContents.length === 0)//if it doesn't exist already
